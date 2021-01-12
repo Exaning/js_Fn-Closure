@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>02_使用函数实现对象的所有功能</title>
+  </head>
+  <body></body>
+  <script>
+    // 1.使用字面量创建函数
+    function sum(m, n) {
+      return m + n;
+    }
+
+    console.log(sum(10, 20));
+
+    // 2.将函数看作表达式的值，赋值给变量，数组元素，其他对象的属性
+    // 赋值给变量
+    let reduce = function (m, n) {
+      return m - n;
+    };
+
+    console.log(reduce(10, 20));
+
+    // 数组元素
+    let arr = [];
+    arr.push(
+      function (a, b) {
+        return a * b;
+      },
+      30,
+      40
+    );
+
+    // 当前的 arr 只有一个参数， arr[0] 就是一个函数
+    console.log(arr[0](8, 9));
+  </script>
+</html>

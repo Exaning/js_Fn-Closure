@@ -34,5 +34,37 @@
 
     // 当前的 arr 只有一个参数， arr[0] 就是一个函数
     console.log(arr[0](8, 9));
+
+    // 将函数作为其他对象的属性值，给对象添加方法
+    let obj = {};
+    obj.setData = function (data) {
+      return data;
+    };
+
+    // 3.函数作为参数
+    // bigger 是一个函数
+    function getMessage(bigger, var1, var2) {
+      return bigger(var1, var2);
+    }
+
+    // 返回第二个和第三个参数之中的较大值
+    console.log(
+      getMessage(
+        function (var1, var2) {
+          return var1 > var2 ? var1 : var2;
+        },
+        20,
+        80
+      )
+    );
+
+    // 4. 将函数作为其他函数的返回值
+    function getBigger() {
+      return function (var1, var2) {
+        return var1 > var2 ? var1 : var2;
+      };
+    }
+
+    console.log(getBigger()(1, 2));
   </script>
 </html>

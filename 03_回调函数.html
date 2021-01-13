@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>回调函数_01</title>
+  </head>
+  <body></body>
+  <script>
+    // 回调：将函数作为参数进行传递，当作参数的函数会在未来的某一个时刻才会被执行
+
+    // 1.最基本的使用场景
+    function callback() {}
+
+    function func(callback) {
+      return callback(); // 函数的参数化调用
+    }
+
+    // 调用
+    func(callback);
+    // 或者
+    func(function callback() {});
+
+    /*A
+      回调函数说明了函数的一种功能：就如果一个 A 函数成为了 B 函数的参数后，那么我们就可以
+      使用这个参数来引用 A 函数
+
+      回调函数：出现另一个函数参数位置上的函数，在函数体内可以直接调用
+    */
+
+    function getMessage(text) {
+      return text;
+    }
+
+    function func_1(getMessage, text) {
+      return getMessage(text);
+    }
+
+    // console.log(func_1(getMessage, "hello exan"));
+
+    console.log(
+      func_1(function getMessage(text) {
+        return text;
+      }, "你好！exan")
+    );
+
+    // 排序
+    let arr_1 = [3, 10, 0, 8, 8, 23, 99, 38];
+
+    console.log(
+      arr_1.sort(function (v1, v2) {
+        return v1 - v2;
+      })
+    );
+
+    // 1. v1 - v2 > 0 说明 v1 < v2 调换位置
+    // 2. v1 - v2 < 0 说明 v1 > v2 不用调换位置
+    // 3. v1 - v2 = 0 保留 v1 v2 直接跳过并比较下一组数据
+  </script>
+</html>

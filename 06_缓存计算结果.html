@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>06_使用函数属性自动缓存计算结果</title>
+  </head>
+  <body></body>
+  <script>
+    // 奇偶判断
+    function isOdd(num) {
+      if (!isOdd.result) {
+        isOdd.result = {};
+      }
+
+      // 检测该数据是否已经被计算过，如果在缓存中，就直接输出
+      if (isOdd.result[num] !== undefined) {
+        return isOdd.result[num];
+      }
+
+      if (num % 2 !== 0) {
+        return (isOdd.result[num] = num);
+      }
+    }
+
+    console.log(isOdd(5) ? "奇数" : "偶数");
+  </script>
+</html>

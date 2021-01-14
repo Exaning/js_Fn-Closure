@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>05_使用函数属性特性，管理回调函数集合</title>
+  </head>
+  <body></body>
+  <script>
+    // 将多个回调函数保存到一个数组中，可以方便管理对象相关联的回调函数集合
+    // 存储函数的容器：将所有函数保存到一个数组中
+    // 在这个函数集合中不允许出现重复的回调函数
+
+    let store = {
+      nextId: 1, // 标识该回调函数是否已经被添加
+      cache: {}, // 缓存已经存在的函数
+      add: function (fn) {
+        // fn 代表要被添加到 cache 中的函数
+        // 假设要被添加到集合中，如果存在该 Id 属性表示该函数已经存在
+        if (!fn.id) {
+          // 如果函数不存在 Id 属性，说明该函数为一个全新的函数，需要被添加到集合中
+          fn.id = this.nextId++; // 新函数的标识
+          this.cache[fn.id] = fn; // 将新函数存入缓存
+          return true;
+        }
+      },
+    };
+
+    function func_1() {}
+
+    if (store.add(func_1)) {
+      console.log("func_1_添加成功");
+    }
+
+    function func_2() {}
+
+    if (store.add(func_2)) {
+      console.log("func_2_添加成功");
+    }
+  </script>
+</html>

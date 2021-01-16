@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>07_函数的定义</title>
+  </head>
+  <body></body>
+  <script>
+    /*
+      字面量定义函数 -- function 关键字
+        1.函数声明
+        2.函数表达式
+        3.构造函数
+        4.箭头函数
+        5.生成器函数
+    */
+
+    // 1. 函数声明
+    function funcName(param1, param2) {
+      // 多条 js 语句
+    }
+
+    // 原则：声明必须是独立的，是在全局进行声明。不能当作值来用。
+    // 有两个地方可以声明：1.全局，2.另一个函数中
+
+    // 1.1 在全局声明
+    function func_1(name) {
+      return name;
+    }
+
+    console.log(func_1("exan"));
+
+    // 1.2 将函数声明写道另一个函数中
+    function func_2(name) {
+      function func_3(grade) {
+        return grade;
+      }
+      return `${name}的成绩是：${func_3(80)}`;
+    }
+
+    console.log(func_2("exan"));
+
+    // 2.函数表达式：使用匿名函数
+    // 2.1 右值：允许该表达式出现在等号或其他运算符右边进行使用
+    let sum = function (a, b) {
+      return a + b;
+    };
+
+    console.log(sum(10, 30));
+
+    // 2.2 将表达式作为参数使用：将函数传到另外一个函数中
+    function callback(a, b) {
+      return a + b;
+    }
+
+    function myFunc_1(callback, a, b) {
+      return callback(a, b);
+    }
+
+    let res = myFunc_1(
+      function (a, b) {
+        return a + b;
+      },
+      10,
+      20
+    );
+
+    console.log(res);
+
+    // 将函数作为另一个函数的返回值
+    function myFunc_2(a, b) {
+      return function () {
+        return a + b;
+      };
+    }
+
+    console.log(myFunc_2(40, 50)());
+
+    function myFunc_3() {
+      return function (a, b) {
+        return a + b;
+      };
+    }
+
+    console.log(myFunc_3()(30, 20));
+
+    // 立刻执行函数 -- 自执行，自调用
+
+    // let res1 = function ($a, $b) {
+    //   return $a * $b;
+    // }(40, 80);
+
+    // 在声明自执行函数时，下列写法
+    let res1 = (function ($a, $b) {
+      return $a * $b;
+    })(40, 80);
+
+    console.log(res1);
+  </script>
+</html>

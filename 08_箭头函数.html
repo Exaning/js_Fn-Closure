@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>08_箭头函数</title>
+  </head>
+  <body></body>
+  <script>
+    // 箭头函数是一种简化版的匿名函数，箭头函数不能完全替代函数声明
+    let sum_1 = function (a, b) {
+      return a + b;
+    };
+
+    // 使用箭头函数的写法改写上述函数
+    let sum_2 = (a, b) => a + b;
+
+    console.log(sum_2(10, 30));
+
+    let arr1 = [99, 34, 9, 12, 183, 2, 44];
+
+    let res1 = arr1.sort(function (v1, v2) {
+      return v1 - v2;
+    });
+
+    console.log(res1);
+
+    // 用箭头函数简化上述排序函数
+    let arr2 = [88, 42, 2, 56, 190, 23];
+    let res2 = arr2.sort((v1, v2) => v1 - v2);
+    console.log(res2);
+
+    // 1.只有一个参数
+    let greet1 = (name) => "welcome" + " " + name;
+    let greet2 = function (name) {
+      return "welcome" + " " + name;
+    };
+
+    console.log(greet1("exan"));
+    console.log(greet2("peter"));
+
+    // 2.没有参数,或者一个以上的参数
+    let greet3 = () => "Hello Exan";
+    let mul = (x, y, z) => x * y * z;
+
+    console.log(mul(2, 3, 4));
+
+    // 3.箭头函数的函数体不是一个表达式，而是一个代码块，那么 大括号, return 不能省略
+    let info = (name, grade) => {
+      let res = "";
+      if (grade >= 60) {
+        res += name + "：成绩合格";
+      } else {
+        res += name + "：需要补考";
+      }
+
+      return res;
+    };
+
+    // console.log(info("exan", 90));
+
+    // 4.在箭头函数中，调用另一个函数
+    let func_1 = (grade) => (grade >= 60 ? "合格" : "补考");
+    // 在另一个函数中调用上述箭头函数
+    let func_2 = (name) => name + ": " + func_1(80);
+
+    console.log(func_2("exan"));
+
+    // 箭头函数不会创建出自己的执行上下文 -- this
+    // 箭头函数不会绑定 arguments 对象
+    // 箭头函数只能用于非方法函数 -- 不能用于对象中
+    // 箭头函数不能用来创建构造函数
+    // 箭头函数没有 prototype 属性
+  </script>
+</html>

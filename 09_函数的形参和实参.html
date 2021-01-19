@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>09_函数的形参和实参</title>
+  </head>
+  <body></body>
+  <script>
+    // 实参：argument -- 调用函数时，传给函数的参数值
+    // 形参：parameter -- 定义函数时，列举出的可能用到的参数
+    // 注意：形参并非必须，只是一个占位符
+
+    // 1. 形参是可选的
+    let sum_1 = function (p1, p2) {
+      return p1 + p2;
+    };
+
+    console.log(sum_1(100, 200));
+
+    let sum_2 = function () {
+      // argument -- 调用函数时的实参对象，具有数组的特征，所以可以用它获取形参
+      // let arg = arguments;
+      console.log(arguments.length);
+      return arguments[0] + arguments[1];
+    };
+
+    console.log(sum_2(300, 400));
+
+    // arguments 对象允许使用不定数量的参数，为函数的功能重载提供技术支持
+    let sum_3 = function () {
+      let total = 0;
+      for (let i = 0; i < arguments.length; i++) {
+        total += arguments[i];
+      }
+      return total;
+    };
+
+    console.log(sum_3(30, 40));
+    console.log(sum_3(30, 40, 50));
+    console.log(sum_3(30, 40, 50, 60));
+
+    /*
+      2.实参顺序必须和形参一致，但是数量可以不一致
+        形参数量小于实参，多余的实参会被忽略掉
+        如果形参数量大于实参，多余的形参会被返回为 undefined
+    */
+
+    function f1(a, b) {
+      return `${a} ${b}`;
+    }
+
+    // b = undefined
+    console.log(f1(2));
+
+    // 4, 5 会被忽略
+    console.log(f1(2, 3, 4, 5));
+
+    let sub = (v1, v2) => {
+      console.log(v2);
+      return v1 - v2;
+    };
+    console.log("_____________________________________________");
+    console.log(sub(2, 1)); // 形参和实参数量一致
+    console.log(sub(70, 30, 90, 50)); // 形参数量小于实参数量
+    console.log(sub(2)); // 形参数量大于实参数量
+  </script>
+</html>

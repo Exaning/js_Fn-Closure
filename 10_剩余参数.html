@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>10_剩余参数</title>
+  </head>
+  <body></body>
+  <script>
+    // ES5 中需要被模拟的 -- 剩余参数 -- 现在 ES6 中到的支持
+    // 剩余参数：有一个特殊的前缀 '...'的形参数组
+    // 必须写在函数括号的最后一个位置
+
+    // 查看最大年龄
+    // 函数：第一个参数是比较年龄，剩下的是被比较的年龄
+
+    // ES5 方法
+    function compareAge(first, age1, age2, age3, age4, age5) {
+      let arrAge = [];
+      // i = 1 -- 跳过比较年龄从被比较年龄开始
+      for (let i = 1; i < arguments.length; i++) {
+        arrAge.push(arguments[i]);
+      }
+      arrAge.sort(function (v1, v2) {
+        return v1 - v2;
+      });
+      let maxAge = arrAge[arrAge.length - 1];
+      let diff = first - maxAge;
+      let res = "";
+      if (diff > 0) {
+        res = first + " -- 是最大年龄";
+      } else if (diff < 0) {
+        res = maxAge + " -- 是最大年龄";
+      } else {
+        res = first + " -- 都是最大年龄";
+      }
+      return res;
+    }
+
+    // console.log(compareAge(40, 23, 34, 75, 12, 60));
+    // console.log(compareAge(40, 23, 34, 35, 12, 40));
+
+    // ES6 写法
+    let diffAge = (first, ...arrAge) => {
+      let maxAge = arrAge.sort((v1, v2) => v2 - v1)[0];
+      let diff = first - maxAge;
+      let res = "";
+      if (diff > 0) {
+        res = first + " -- 是最大年龄";
+      } else if (diff < 0) {
+        res = maxAge + " -- 是最大年龄";
+      } else {
+        res = first + " -- 都是最大年龄";
+      }
+      return res;
+    };
+
+    console.log(diffAge(40, 23, 34, 75, 12, 60));
+  </script>
+</html>

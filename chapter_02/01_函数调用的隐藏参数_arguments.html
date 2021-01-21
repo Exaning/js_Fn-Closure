@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>01_函数调用的隐藏参数_arguments</title>
+  </head>
+  <body></body>
+  <script>
+    // 查找指定的用户名：用剩余参数实现
+    let func_1 = function (...params) {
+      // console.log(Array.isArray(params)); // 剩余参数是数组
+      // console.log(params.length); // 参数数量
+
+      let result = "";
+      params.forEach((val) => {
+        result = val === "admin" ? "找到了!" : "没有找到...";
+      });
+      return result;
+    };
+
+    // console.log(func_1("peter", "zhu", "exan"));
+    // console.log(func_1("peter", "zhu", "exan", "admin"));
+
+    // 用实参的别名 arguments 来实现同样的功能
+    let func_2 = function () {
+      let result = "";
+      for (let i = 0; i < arguments.length; i++) {
+        result = arguments[i] === "admin" ? "找到了!" : "没有找到...";
+      }
+      return result;
+    };
+
+    // console.log(func_2("peter", "zhu", "exan"));
+    // console.log(func_1("peter", "zhu", "exan", "admin"));
+
+    // 隐藏参数
+    let func_3 = function (v1, v2) {
+      console.log(v1);
+      console.log(v2);
+      arguments[2] = "小伊";
+      return arguments[2];
+    };
+
+    // 第三个实参会在函数内被修改为 -- 小伊
+    console.log(func_3("peter", "zhu", "exan")); // peter zhu 小伊
+  </script>
+</html>

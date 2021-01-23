@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>02_四种常用的函数调用方式复习</title>
+  </head>
+  <body></body>
+  <script>
+    /*
+      1.把函数当成函数调用 -- xxx()
+      2.把函数当成对象的方法调用 obj.xxx()
+      3.当成对象的构造器调用 -- new XXX()
+      4.用 call() 和 apply() 调用
+    */
+
+    // 1.一般调用
+    // console.log(
+    //   (function (name) {
+    //     return "你好 " + name;
+    //   })("exan")
+    // );
+
+    // console.log(
+    //   ((name) => {
+    //     return "你好 " + name;
+    //   })("lina")
+    // );
+
+    function hello(name) {
+      return "你好 " + name;
+    }
+
+    // console.log(hello("exan"));
+
+    // 2.当作对象的方法调用
+    let obj = {
+      name: "Peter",
+      study: function (course) {
+        return this.name + "在学习" + course;
+      },
+    };
+
+    // console.log(obj.study("Javascript"));
+
+    // 3.当作构造器(构造函数)调用
+    function Stu(name, course, grade) {
+      this.name = name;
+      this.course = course;
+      this.grade = grade;
+    }
+
+    let stu = new Stu("exan", "Javascript", "95");
+    // console.log(stu);
+    // console.log(stu.name);
+    // console.log(stu.course);
+    // console.log(stu.grade);
+
+    // 4.call() 和 apply() 调用
+    let sum = (m, n) => m + n;
+    // sum 是一个函数同时也是一个对象，在每一个函数上都有一个 call 方法可以调用该函数
+    // call 方法的另一个功能是动态设置函数调用的上下文，也就是动态设置函数的 -- 调用者
+    // call 方法的第一个参数是 this --> 指向 sum 函数的调用者 -- 全局对象 window
+    // apply 方法的功能和 call 方法相同，区别是 除了第一个参数以外的参数必须写进数组中
+    console.log(sum.call(this, 10, 30));
+    console.log(sum.apply(this, [10, 30]));
+  </script>
+</html>

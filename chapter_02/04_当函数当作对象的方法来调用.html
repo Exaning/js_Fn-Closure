@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>04_当函数当作对象的方法来调用</title>
+  </head>
+  <body></body>
+  <script>
+    /*
+    当函数当作对象的方法来调用时：
+      函数调用上下文就是该对象
+      函数内部可用 this 访问到这个对象
+    */
+
+    const mobile = {
+      brand: "华为",
+      model: "P20 pro",
+      price: 5899,
+      getInfo: function () {
+        console.log(this); // mobile
+        return this.brand + this.model + " : " + this.price + "元";
+      },
+    };
+
+    console.log(mobile.getInfo());
+  </script>
+</html>

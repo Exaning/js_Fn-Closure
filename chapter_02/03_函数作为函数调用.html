@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>03_函数作为函数调用</title>
+  </head>
+  <body></body>
+  <script>
+    // this: 定义函数的上下文对象
+    // 每一个函数都有一个 this 对象，是隐藏参数
+
+    function func_1() {
+      return this;
+    }
+
+    console.log(func_1()); // window
+
+    function func_2() {
+      "use strict";
+      return this;
+    }
+
+    console.log(func_2()); // undefined
+    console.log(window.func_2()); // window
+    console.log(this.func_2()); // window   在全局环境下，this -> 指向 window
+
+    // 全局环境下，this -- 函数调用的上下文对象就是 window
+    // 在严格模式下 this 将为 undefined
+  </script>
+</html>

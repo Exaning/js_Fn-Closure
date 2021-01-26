@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>05_将函数当作对象构造器使用</title>
+  </head>
+  <body></body>
+  <script>
+    // 构造函数
+    function Mobile(brand, model, price) {
+      this.brand = brand;
+      this.model = model;
+      this.price = price;
+      this.print = () => {
+        return this.brand + ": " + this.model + ": " + this.price + "元";
+      };
+    }
+
+    // this 指向 new 出来的实例
+
+    let mobile_1 = new Mobile("apple", "iphoneXR", 6899);
+    let mobile_2 = new Mobile("huawei", "P20 pro", 5688);
+
+    // console.log(mobile_1.print());
+    // console.log(mobile_2.print());
+
+    // new 的功能就是用来调用构造函数
+    // 当 new 的时候，构造函数内部发生了什么？
+
+    // 写一个不可执行的模拟构造函数
+    function Constructor(prop_1, prop_2, prop_3) {
+      this.prop_1 = prop_1;
+      this.prop_2 = prop_2;
+      this.prop_3 = prop_3;
+      // this 指向未来被 new 关键字创建的对象
+      return this;
+    }
+
+    /*
+      1.创建出一个新的空对象
+      2.上述新的空对象会以 this 的形式传入的构造函数中，作为调用函数的上文对象
+      3.给空对象创建多个属性，使用形参初始化他们的值
+      4.返回用 this 表示的新对象(return this)，因为 this 就是这些属性的调用对象
+    */
+
+    // 函数调用时会隐藏传入两个参数：arguments, this
+    // 如果在构造函数中，如果显式的返回一个自定义对象，而不是返回 this，会发生什么？原来的 this 是否能用？
+    let global = {
+      name: "peter",
+    };
+
+    // 构造函数 Demo
+    function Demo_1(value) {
+      this.prop = value;
+      // 将构造函数中返回的 this 对象换成自定义个对象 global
+      return global;
+    }
+
+    let demo_1 = new Demo_1("js");
+
+    // console.log(demo_1.prop); // undefined -- 而不是 js
+    // console.log(demo_1 instanceof Demo_1); // false
+    // console.log(demo_1 === global); // true
+    // console.log(demo_1.name); // peter
+
+    // 构造函数
+    function Demo_2(value) {
+      this.prop = value;
+      // 将构造函数中返回的 this 对象换成自定义原始值(非对象数据)
+      // return 1000;
+      // return "hello";
+      // return true;
+      // return undefined;
+      return null;
+    }
+
+    let demo_2 = new Demo_2("Java");
+
+    console.log(demo_2 instanceof Demo_2);
+    console.log(demo_2.prop); // Java
+
+    /*
+      如果让构造函数返回一个自定义对象，那么该对象就是整个表达式的返回值 -- 使用 new 关键字返回的对象
+      原来的构造函数的 this 就会被丢弃
+
+      如果让构造函数返回一个非对象值，构造函数就会返回 this 而不是非对象值，该非对象值会被忽略
+      this 仍然指向使用 new 关键字返回的对象
+    */
+  </script>
+</html>

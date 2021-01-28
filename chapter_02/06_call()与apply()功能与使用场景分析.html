@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>06_call()与apply()功能与使用场景分析</title>
+  </head>
+  <body></body>
+  <script>
+    /*
+          函数作为函数调用，作为对象方法调用，作为对象构造器调用和函数的 call 和 apply 方法的区别是：
+          this 指向的不同
+
+          1.全局函数调用时的 this 指向: window/undefined(严格模式)
+          2.函数作为对象的方法调用时的 this 指向: 拥有该方法的对象
+          3.函数作为对象构造器时的 this 指向: 使用 new 关键字创建的新对象(实例)
+
+          上述三种方式有一个共同特点: this 的指向是固定的,不允许改变
+          如果想要动态改变 this 指向 (调用函数的上下文)就必须使用 call 或者 apply 方法
+        */
+
+    function sum() {
+      let result = 0;
+      for (let i = 0; i < arguments.length; i++) {
+        result += arguments[i];
+      }
+
+      this.result = result;
+      return this.result;
+    }
+
+    console.log(this); // window
+    console.log(sum(10, 20, 30)); // 60
+    console.log(window.sum(10, 20, 30)); // 60
+    console.log(this.sum(10, 20, 30)); // 60
+
+    let obj_1 = {};
+    let obj_2 = {};
+
+    // 动态改变 sum 调用上下文对象 this -> window
+    // call(调用上下文对象, 参数...)
+    let res_1 = sum.call(obj_1, 30, 40, 50);
+    console.log(res_1);
+
+    let res_2 = sum.apply(obj_1, [30, 40, 50]);
+    console.log(res_2);
+
+    // 等价写法
+    let res_3 = window.sum.apply(obj_2, [40, 50, 70]); // window 被 obj_2 替换,this 指向 obj_2
+    console.log(res_3);
+
+    // 什么时候用 call? 什么时候用 apply?
+    // 如果参数之间不相关,使用 call 方法
+    // 如果参数之间相关,例如描述一个对象的不可拆分的参数列表,或者参数本身就是一个数组,就是用 apply 方法
+  </script>
+</html>
